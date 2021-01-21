@@ -1,15 +1,17 @@
 package org.MigraineBot.tg;
 
-import lombok.*;
-import org.MigraineBot.model.State;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
+import org.MigraineBot.model.states.State;
 
 public class User {
-    private User() {}
+    private User() {
+    }
 
-    public User( long id, State state) {
-        this.id = id ;
-        this.state = state ;
+    public User(long id, State state) {
+        this.id = id;
+        this.state = state;
     }
 
     @Getter

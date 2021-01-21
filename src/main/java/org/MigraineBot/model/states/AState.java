@@ -1,12 +1,12 @@
-package org.MigraineBot.model;
+package org.MigraineBot.model.states;
 
 import org.MigraineBot.tg.MigraineBot;
 
 abstract public class AState implements State {
     static private final MigraineBot bot = MigraineBot.getInstance();
 
-    protected void sendText(String text){
-        bot.sendSex(1);
+    protected void sendText(long chatId, String text) {
+        //todo fix me
     }
 
     State next;
@@ -18,5 +18,6 @@ abstract public class AState implements State {
         this.next = next;
     }
 
-    abstract public State processRequest(String text);
+    @Override
+    abstract public State processRequest(long chatId, String text);
 }
