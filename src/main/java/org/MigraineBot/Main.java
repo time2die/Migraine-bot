@@ -12,14 +12,9 @@ public class Main {
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
             botsApi.registerBot(MigraineBot.getInstance());
-
         } catch (TelegramApiException e) {
             e.printStackTrace();
 
         }
-
-
-
-
     }
 }
