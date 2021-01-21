@@ -9,14 +9,9 @@ abstract public class AState implements State {
         //todo fix me
     }
 
-    State next;
-
-    private AState() {
+    protected AState() {
     }
 
-    public AState(State next) {
-        this.next = next;
-    }
 
     @Override
     abstract public State processRequest(long chatId, String text);

@@ -2,8 +2,8 @@ package org.MigraineBot.model.states;
 
 import org.MigraineBot.model.Constants;
 
-public class LastState extends AState {
-    public LastState(State next) {
+public class Last extends AOneNext {
+    public Last(State next) {
         super(null);
     }
 
