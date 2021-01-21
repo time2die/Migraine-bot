@@ -6,15 +6,11 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.logging.Level;
 
 public class MigraineBot extends TelegramLongPollingBot {
 
@@ -33,10 +29,10 @@ public class MigraineBot extends TelegramLongPollingBot {
         return localInstance;
     }
 
-    Status stat;
+    Database stat;
 
     public MigraineBot() {
-        this.stat = new Status();
+        this.stat = new Database();
     }
 
 
@@ -47,8 +43,7 @@ public class MigraineBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        String token = System.getenv("MIGRAINE_BOT_TOKEN");
-        return token;
+        return System.getenv("MIGRAINE_BOT_TOKEN");
 
     }
 
@@ -57,14 +52,22 @@ public class MigraineBot extends TelegramLongPollingBot {
 
         Message message = update.getMessage();
         stat.setIdName(message.getFrom().getId(), message.getFrom().getUserName());
-        stat.incCount(update.getMessage().getChatId(), message.getFrom().getId());
+        stat.setChatId(update.getMessage().getChatId());
 
         if (message == null || !message.hasText()) {
             return;
         }
 
         if (message.getText().equals("/help")) {
-            sendMsg(message, "Cry, bitch");
+            sendMsg(message, "Hy!");
+
+        }
+        else if (message.getText().equals("/sex")) {
+            try {
+                execute(sendSex(update.getMessage().getChatId()));
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
         }
         else {
             sendMsg(message, "Hy");
@@ -73,10 +76,8 @@ public class MigraineBot extends TelegramLongPollingBot {
     }
 
 
-
     protected void sendMsg(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
-        sendMessage.enableMarkdown(false);
         sendMessage.setChatId(message.getChatId().toString());
         sendMessage.setReplyToMessageId(message.getMessageId());
         sendMessage.setText(text);
@@ -87,7 +88,7 @@ public class MigraineBot extends TelegramLongPollingBot {
         }
     }
 
-    protected void sendMsg(Long ChatId, String text) {
+    public void sendMsg(Long ChatId, String text) {
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(false);
@@ -129,12 +130,5 @@ public class MigraineBot extends TelegramLongPollingBot {
     }
 
 
-    public synchronized void sendAllStatistic() {
-
-        ArrayList<Long> str = stat.getChatsId();
-        for (int i = 0; i < str.size(); i++) {
-            sendMsg(str.get(i), stat.getCount(str.get(i)));
-        }
-    }
 }
 
