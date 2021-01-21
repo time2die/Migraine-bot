@@ -5,6 +5,10 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
+
 
 public class Main {
 
@@ -19,7 +23,10 @@ public class Main {
         }
 
 
+        Calendar today = Calendar.getInstance();
 
 
+        Timer timer = new Timer();
+        timer.schedule(new MessageByTime(), today.getTime(), TimeUnit.MILLISECONDS.convert(10, TimeUnit.SECONDS));
     }
 }
