@@ -37,6 +37,8 @@ public class MigraineBot extends TelegramLongPollingBot {
 
     public MigraineBot() {
         this.stat = new Status();
+
+        System.out.printf("MIGRAINE_BOT_NAME:%s\nMIGRAINE_BOT_TOKEN:%s\n",getBotUsername(),getBotToken());
     }
 
 
