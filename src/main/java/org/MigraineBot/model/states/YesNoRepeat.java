@@ -1,15 +1,15 @@
 package org.MigraineBot.model.states;
 
+import lombok.Setter;
+@Setter
 public class YesNoRepeat extends AState {
+
 
     State yState;
     State nState;
 
-    YesNoRepeat(String question, State yes, State no) {
+    YesNoRepeat(String question) {
         super();
-
-        this.yState = yes;
-        this.nState = no;
     }
 
     @Override
