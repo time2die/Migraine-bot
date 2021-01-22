@@ -1,6 +1,7 @@
 package org.MigraineBot.tg;
 
 
+import org.MigraineBot.model.Constants;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -10,6 +11,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 public class MigraineBot extends TelegramLongPollingBot {
 
     private static volatile MigraineBot instance;
+    private static Processor processor = new Processor();
 
     public static MigraineBot getInstance() {
         MigraineBot localInstance = instance;
@@ -45,25 +47,20 @@ public class MigraineBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-
         Message message = update.getMessage();
         stat.setIdName(message.getFrom().getId(), message.getFrom().getUserName());
         stat.addChatId(update.getMessage().getChatId());
 
-        if (message == null || !message.hasText()) {
+        if (message.getFrom().getId().longValue() != message.getChatId() && message.getText().startsWith("/")) {
+            sendMsg(message.getChatId(), Constants.OnlyDirectMessage);
             return;
         }
 
-        if (message.getText().equals("/help")) {
-            sendMsg(message, "Hy!");
-        } else {
-            sendMsg(message, "Hy");
-        }
-
+        processor.process(update);
     }
 
 
-    protected void sendMsg(Message message, String text) {
+    protected void answer(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(message.getChatId().toString());
         sendMessage.setReplyToMessageId(message.getMessageId());
