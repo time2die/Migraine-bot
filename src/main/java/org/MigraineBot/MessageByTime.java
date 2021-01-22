@@ -1,38 +1,41 @@
 package org.MigraineBot;
-import org.MigraineBot.tg.MigraineBot;
-import org.MigraineBot.tg.Database;
 
-import java.util.*;
+import org.MigraineBot.tg.Database;
+import org.MigraineBot.tg.MigraineBot;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimerTask;
 
 public class MessageByTime extends TimerTask {
 
-    Set <Long> id = new HashSet<>();
-    Calendar  calendarSend = new GregorianCalendar();
+    Calendar calendarSend;
 
     public MessageByTime() {
         calendarSend = new GregorianCalendar();
         calendarSend.add(Calendar.DAY_OF_YEAR, -1);
-        id = Database.getAllChatId();
     }
 
     @Override
     public void run() {
 
-        Calendar currentCalendar = new GregorianCalendar();
-
-        if (currentCalendar.get(Calendar.DAY_OF_MONTH) > calendarSend.get(Calendar.DAY_OF_MONTH) &
-                currentCalendar.get(Calendar.HOUR) == 22 &
-                currentCalendar.get(Calendar.MINUTE) == 07){
+        if (timeToSend()) {
 
             MigraineBot status = MigraineBot.getInstance();
 
-            for (Long text : id)
-            {
+            for (Long text : Database.chatIds()) {
                 status.sendMsg(text, "Hello");
             }
 
-            calendarSend=Calendar.getInstance();
-
+            calendarSend = Calendar.getInstance();
         }
+    }
+
+    public boolean timeToSend() {
+        Calendar currentCalendar = new GregorianCalendar();
+
+        return currentCalendar.get(Calendar.DAY_OF_MONTH) > calendarSend.get(Calendar.DAY_OF_MONTH) &&
+                currentCalendar.get(Calendar.HOUR) == 22 &&
+                currentCalendar.get(Calendar.MINUTE) == 07;
     }
 }

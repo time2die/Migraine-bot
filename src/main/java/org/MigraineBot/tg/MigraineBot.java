@@ -48,7 +48,7 @@ public class MigraineBot extends TelegramLongPollingBot {
 
         Message message = update.getMessage();
         stat.setIdName(message.getFrom().getId(), message.getFrom().getUserName());
-        stat.setChatId(update.getMessage().getChatId());
+        stat.addChatId(update.getMessage().getChatId());
 
         if (message == null || !message.hasText()) {
             return;
