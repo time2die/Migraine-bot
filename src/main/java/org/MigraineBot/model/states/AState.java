@@ -6,7 +6,7 @@ abstract public class AState implements State {
     static private final MigraineBot bot = MigraineBot.getInstance();
 
     protected void sendText(long chatId, String text) {
-        //todo fix me
+        MigraineBot.getInstance().sendMsg(chatId,text);
     }
 
     protected AState() {
