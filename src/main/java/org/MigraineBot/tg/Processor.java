@@ -1,5 +1,6 @@
 package org.MigraineBot.tg;
 
+import org.MigraineBot.model.Constants;
 import org.MigraineBot.model.states.Flow;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -15,6 +16,15 @@ public class Processor {
         Message message = update.getMessage();
         if (message == null || !message.hasText()) {
             return;
+        }
+
+        switch (message.getText().toLowerCase()) {
+            case "/help":
+                MigraineBot.getInstance().sendMsg(message.getChatId(), Constants.HelpMessage);
+                return;
+            case "/reset":
+                users.remove(message.getChatId());
+                return;
         }
 
         var nUser = users.getOrDefault(message.getChatId(), new User(message.getChatId(), Flow.firstState()));
