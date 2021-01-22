@@ -17,8 +17,10 @@ public class Processor {
             return;
         }
 
-        users.getOrDefault(message.getChatId(), new User(message.getChatId(), Flow.firstState()))
-                .processRequest(message.getChatId(), message.getText());
+        var nUser = users.getOrDefault(message.getChatId(), new User(message.getChatId(), Flow.firstState()));
+        nUser.processRequest(message.getChatId(), message.getText());
+        users.put(message.getChatId(), nUser);
+
     }
 
 }
