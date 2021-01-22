@@ -4,6 +4,6 @@ import org.MigraineBot.model.Constants;
 
 public class PreLast extends TextNext {
     public PreLast(State next) {
-        super(Constants.LastAnswer,new Last(null));
+        super(Constants.LastAnswer, new Last(null));
     }
 }

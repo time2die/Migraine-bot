@@ -6,9 +6,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class Database {
-    private static Set<Long> allChatId = new HashSet<Long>();
+    private static final Set<Long> allChatId = new HashSet<Long>();
 
-    private Map<Integer, String> idName;
+    private final Map<Integer, String> idName;
 
 
     public Database() {

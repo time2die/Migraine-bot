@@ -5,7 +5,7 @@ public class YesNoRepeat extends AState {
     State yState;
     State nState;
 
-    YesNoRepeat(String question ,State yes, State no) {
+    YesNoRepeat(String question, State yes, State no) {
         super();
 
         this.yState = yes;

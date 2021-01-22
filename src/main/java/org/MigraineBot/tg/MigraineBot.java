@@ -11,7 +11,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 public class MigraineBot extends TelegramLongPollingBot {
 
     private static volatile MigraineBot instance;
-    private static Processor processor = new Processor();
+    private static final Processor processor = new Processor();
 
     public static MigraineBot getInstance() {
         MigraineBot localInstance = instance;

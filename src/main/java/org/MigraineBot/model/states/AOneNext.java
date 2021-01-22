@@ -1,6 +1,6 @@
 package org.MigraineBot.model.states;
 
-abstract public class AOneNext extends AState{
+abstract public class AOneNext extends AState {
     State next;
 
     public AOneNext(State next) {

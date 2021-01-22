@@ -26,7 +26,7 @@ public class User implements State {
 
     @Override
     public State processRequest(long chatId, String text) {
-        state = state.processRequest(chatId,text);
+        state = state.processRequest(chatId, text);
         return this;
     }
 }
