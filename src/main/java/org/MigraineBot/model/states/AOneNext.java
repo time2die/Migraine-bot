@@ -12,4 +12,9 @@ abstract public class AOneNext extends AState {
     public State processRequest(long chatId, String text) {
         return next;
     }
+
+    @Override
+    public void turnOn(long chatId) {
+    }
+
 }

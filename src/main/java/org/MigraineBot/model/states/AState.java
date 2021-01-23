@@ -11,8 +11,4 @@ abstract public class AState implements State {
 
     protected AState() {
     }
-
-
-    @Override
-    abstract public State processRequest(long chatId, String text);
 }

@@ -18,19 +18,34 @@ public class Processor {
             return;
         }
 
+        var chatId = message.getChatId();
+
         switch (message.getText().toLowerCase()) {
             case "/help":
-                MigraineBot.getInstance().sendMsg(message.getChatId(), Constants.HelpMessage);
+                MigraineBot.getInstance().sendMsg(chatId, Constants.HelpMessage);
                 return;
             case "/reset":
-                users.remove(message.getChatId());
+                users.remove(chatId);
+                return;
+            case "/start":
+                users.remove(chatId);
+                var nUser = users.getOrDefault(chatId, new User(chatId, Flow.firstState()));
+                users.put(chatId, nUser);
                 return;
         }
 
-        var nUser = users.getOrDefault(message.getChatId(), new User(message.getChatId(), Flow.firstState()));
-        nUser.processRequest(message.getChatId(), message.getText());
-        users.put(message.getChatId(), nUser);
 
+        var nUser = users.get(chatId);
+        if (nUser == null) {
+            nUser = buildDefault(chatId);
+        }
+        nUser.processRequest(chatId, message.getText());
+        users.put(chatId, nUser);
+
+    }
+
+    User buildDefault(Long chatId) {
+        return new User(chatId, Flow.firstState());
     }
 
 }

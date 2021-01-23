@@ -14,10 +14,14 @@ public class Flow {
 
         TextNext goodDay = new TextNext("Ну и славно",l);
 
+        IntAnswer painLevel = new IntAnswer("Оцените уровень боли от 1 до 10",1,10);
+        painLevel.setNext(goodDay);
+
         illToday.setYState(needPils);
         illToday.setNState(pl);
 
-        needPils.setNState(needHelp);
+        needPils.setNState(painLevel);
+        needPils.setYState(needHelp);
 
         needHelp.setNState(goodDay);
         needHelp.setYState(goodDay);

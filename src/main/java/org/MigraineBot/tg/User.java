@@ -5,13 +5,14 @@ import lombok.Getter;
 import lombok.ToString;
 import org.MigraineBot.model.states.State;
 
-public class User implements State {
+public class User {
     private User() {
     }
 
     public User(long id, State state) {
         this.id = id;
         this.state = state;
+        state.turnOn(id);
     }
 
     @Getter
@@ -24,9 +25,9 @@ public class User implements State {
     @EqualsAndHashCode.Include
     State state;
 
-    @Override
-    public State processRequest(long chatId, String text) {
+    public User processRequest(long chatId, String text) {
         state = state.processRequest(chatId, text);
+        state.turnOn(chatId);
         return this;
     }
 }
