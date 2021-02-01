@@ -22,11 +22,9 @@ public class Main {
 
         }
 
-
         Calendar today = Calendar.getInstance();
 
-
         Timer timer = new Timer();
-        timer.schedule(new MessageByTime(), today.getTime(), TimeUnit.MILLISECONDS.convert(10, TimeUnit.SECONDS));
+        timer.schedule(new MessageByTime(), today.getTime(), TimeUnit.MILLISECONDS.convert(60, TimeUnit.MINUTES));
     }
 }
