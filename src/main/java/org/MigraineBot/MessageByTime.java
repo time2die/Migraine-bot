@@ -1,5 +1,6 @@
 package org.MigraineBot;
 
+import org.MigraineBot.db.Repo;
 import org.MigraineBot.tg.Database;
 import org.MigraineBot.tg.MigraineBot;
 
@@ -19,16 +20,16 @@ public class MessageByTime extends TimerTask {
     @Override
     public void run() {
 
-        if (timeToSend()) {
+//        if (timeToSend()) {
 
             MigraineBot status = MigraineBot.getInstance();
 
-            for (Long text : Database.chatIds()) {
-                status.sendMsg(text, "Hello");
+            for (Long text : Repo.GetUsers()) {
+                status.sendMsg(text, "С некоторой переодичностью буду вас дергать");
             }
 
-            calendarSend = Calendar.getInstance();
-        }
+//            calendarSend = Calendar.getInstance();
+//        }
     }
 
     public boolean timeToSend() {
