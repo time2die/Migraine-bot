@@ -30,7 +30,7 @@ task fatJar(type: Jar) {
                 'Implementation-Version': version,
                 'Main-Class': 'org.MigraineBot.Main'
     }
-    baseName = project.name + '-all'
+    baseName = 'Migraine-bot-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
