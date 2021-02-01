@@ -1,5 +1,6 @@
 package org.MigraineBot.tg;
 
+import org.MigraineBot.db.Repo;
 import org.MigraineBot.model.Constants;
 import org.MigraineBot.model.states.Flow;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -19,6 +20,8 @@ public class Processor {
         }
 
         var chatId = message.getChatId();
+
+        Repo.CreateUser(chatId);
 
         switch (message.getText().toLowerCase()) {
             case "/help":
