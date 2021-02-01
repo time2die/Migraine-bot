@@ -9,6 +9,11 @@ import java.util.Set;
 
 public class Repo {
 
+    public Repo(){
+        DbPool.getInstance().getDbConn();
+    }
+
+
     public static void main(String[] args) {
         for (Long id : Repo.GetUsers()) {
             System.out.println(id);

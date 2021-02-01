@@ -1,5 +1,6 @@
 package org.MigraineBot;
 
+import org.MigraineBot.db.Repo;
 import org.MigraineBot.tg.MigraineBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -13,6 +14,9 @@ import java.util.concurrent.TimeUnit;
 public class Main {
 
     public static void main(String[] args) {
+
+        new Repo();
+
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
             botsApi.registerBot(MigraineBot.getInstance());
