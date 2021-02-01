@@ -34,11 +34,12 @@ class DbPool {
 
     public DbPool() {
 
-        try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://91.235.136.131:15432/migrene_mvp_bot", "postgres", "sx6sRgkE9ej8V2vk")) {
+        try {
+            Connection conn = DriverManager.getConnection(getDNS(), "postgres", "") ;
 
             if (conn != null) {
                 System.out.println("Connected to the database!");
+                dbConn = conn;
             } else {
                 System.out.println("Failed to make connection!");
             }
@@ -51,5 +52,9 @@ class DbPool {
             e.printStackTrace();
             System.exit(0);
         }
+    }
+
+    private static String getDNS() {
+        return "jdbc:postgresql://91.235.136.131:15432/migrene_mvp_bot";
     }
 }
