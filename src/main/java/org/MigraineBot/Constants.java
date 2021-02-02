@@ -6,5 +6,5 @@ public class Constants {
     public static final String OnlyDirectMessage = "Я работаю только в личных сообщениях\n";
     public static final String HelpMessage = "Use /help or /reset\n";
 
-    public static final String CronMessage = "Сообщение которое показывает что мы умеем работать с таймером\n";
+    public static final String CronMessage = "Сообщение которое показывает что мы умеем работать с таймером\nРаз в 15 минут пишем вам";
 }
