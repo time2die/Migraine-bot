@@ -1,7 +1,6 @@
 package org.MigraineBot;
 
 import org.MigraineBot.db.Repo;
-import org.MigraineBot.tg.Database;
 import org.MigraineBot.tg.MigraineBot;
 
 import java.util.Calendar;
@@ -10,8 +9,7 @@ import java.util.TimerTask;
 
 public class MessageByTime extends TimerTask {
 
-    public MessageByTime() {
-    }
+    Calendar lastTime = new GregorianCalendar();
 
     @Override
     public void run() {
@@ -28,7 +26,7 @@ public class MessageByTime extends TimerTask {
     public boolean timeToSend() {
         Calendar currentCalendar = new GregorianCalendar();
         var minute = currentCalendar.get(Calendar.MINUTE);
-        return minute % 15 == 0 ;
+        return minute % 5 == 0 && lastTime.get(Calendar.MINUTE) != minute;
 //        return currentCalendar.get(Calendar.DAY_OF_MONTH) > calendarSend.get(Calendar.DAY_OF_MONTH) &&
 //                currentCalendar.get(Calendar.HOUR) == 22 &&
 //                currentCalendar.get(Calendar.MINUTE) == 07;
