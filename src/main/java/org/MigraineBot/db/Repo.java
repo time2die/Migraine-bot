@@ -17,7 +17,7 @@ public class Repo {
             SELECT answer FROM (
                                    SELECT answer, count(*) as times
                                    FROM bot_answers as ba
-                                   WHERE tg_id = 69711013 AND question_id = 1
+                                   WHERE tg_id = ? AND question_id = ?
                                    GROUP BY answer
                                    ORDER BY times DESC
                         
@@ -85,15 +85,16 @@ public class Repo {
             System.out.println("Write to answer db, db_id:" + dbId);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return;
         }
     }
 
     public static List<String> Answers(long tgId, long qId) {
         var results = new ArrayList<String>();
         try {
-
-            ResultSet resultSet = DbPool.getInstance().getDbConn().prepareStatement(SQL_SELECT_ANSWERS).executeQuery();
+            PreparedStatement selectStm = DbPool.getInstance().getDbConn().prepareStatement(SQL_SELECT_ANSWERS);
+            selectStm.setLong(1, tgId);
+            selectStm.setLong(2, qId);
+            ResultSet resultSet = selectStm.executeQuery();
 
             while (resultSet.next()) {
                 String answer = resultSet.getString("answer");

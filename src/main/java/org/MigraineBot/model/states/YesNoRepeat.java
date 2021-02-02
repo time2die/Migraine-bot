@@ -1,10 +1,11 @@
 package org.MigraineBot.model.states;
 
 import lombok.Setter;
+
 @Setter
 public class YesNoRepeat extends AState {
 
-    String question ;
+    String question;
     State yState;
     State nState;
 

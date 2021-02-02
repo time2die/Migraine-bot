@@ -36,7 +36,7 @@ class DbPool {
 
         try {
 
-            Connection conn = DriverManager.getConnection(getDNS(), "postgres", System.getenv("DB_PSWD")) ;
+            Connection conn = DriverManager.getConnection(getDNS(), "postgres", System.getenv("DB_PSWD"));
 
             if (conn != null) {
                 System.out.println("Connected to the database!");
@@ -56,6 +56,6 @@ class DbPool {
     }
 
     private static String getDNS() {
-        return "jdbc:postgresql://"+System.getenv("DB_HOST")+"/migrene_mvp_bot";
+        return "jdbc:postgresql://" + System.getenv("DB_HOST") + "/migrene_mvp_bot";
     }
 }

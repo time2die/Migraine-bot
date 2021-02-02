@@ -2,10 +2,10 @@ package org.MigraineBot.model.states;
 
 public class Flow {
 
-        public static State firstState() {
-            Last l = new Last(null) ;
-            return l ;
-        }
+    public static State firstState() {
+        Last l = new Last(null);
+        return l;
+    }
 
 //    public static State firstState() {
 //        Last l = new Last(null) ;
