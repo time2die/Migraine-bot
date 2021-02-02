@@ -3,25 +3,26 @@ package org.MigraineBot.db;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Repo {
 
-    public Repo(){
-        DbPool.getInstance().getDbConn();
-    }
-
-
-    public static void main(String[] args) {
-        for (Long id : Repo.GetUsers()) {
-            System.out.println(id);
-            CreateUser(id);
-        }
-    }
-
-    private static String INSERT_IF_NEED = "INSERT INTO bot_users (tg_id) VALUES (?) ON CONFLICT DO NOTHING;";
+    private static final String INSERT_IF_NEED = "INSERT INTO bot_users (tg_id) VALUES (?) ON CONFLICT DO NOTHING;";
+    private static final String INSERT_ANSWER = """
+                INSERT INTO bot_answers (tg_id, question_id, answer)
+                VALUES (?, ?, ?)
+                ON CONFLICT DO NOTHING;
+            """.trim();
+    private static final String SQL_SELECT_ANSWERS = """
+            SELECT answer FROM (
+                                   SELECT answer, count(*) as times
+                                   FROM bot_answers as ba
+                                   WHERE tg_id = 69711013 AND question_id = 1
+                                   GROUP BY answer
+                                   ORDER BY times DESC
+                        
+            ) as res;                 
+            """.trim();
 
     public static void CreateUser(long id) {
         try {
@@ -41,7 +42,6 @@ public class Repo {
     public static Set<Long> GetUsers() {
         var results = new HashSet<Long>();
         try {
-            DbPool.getInstance().getDbConn().prepareStatement(SQL_SELECT);
 
             ResultSet resultSet = DbPool.getInstance().getDbConn().prepareStatement(SQL_SELECT).executeQuery();
 
@@ -57,4 +57,54 @@ public class Repo {
 
         return results;
     }
+
+    public Repo() {
+        DbPool.getInstance().getDbConn();
+    }
+
+    public static void main(String[] args) {
+        for (Long id : Repo.GetUsers()) {
+            System.out.println(id);
+            CreateUser(id);
+
+            var a = Answers(id, 1);
+            for (String i : a) {
+                System.out.println(i);
+            }
+            System.out.println();
+        }
+    }
+
+    public static void SafeAnswer(long tgId, long qId, String answer) {
+        try {
+            PreparedStatement updateUsers = DbPool.getInstance().getDbConn().prepareStatement(INSERT_ANSWER);
+            updateUsers.setLong(1, tgId);
+            updateUsers.setLong(2, qId);
+            updateUsers.setString(3, answer);
+            var dbId = updateUsers.executeUpdate();
+            System.out.println("Write to answer db, db_id:" + dbId);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return;
+        }
+    }
+
+    public static List<String> Answers(long tgId, long qId) {
+        var results = new ArrayList<String>();
+        try {
+
+            ResultSet resultSet = DbPool.getInstance().getDbConn().prepareStatement(SQL_SELECT_ANSWERS).executeQuery();
+
+            while (resultSet.next()) {
+                String answer = resultSet.getString("answer");
+                results.add(answer);
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return Collections.EMPTY_LIST;
+        }
+        return results;
+    }
 }
+
