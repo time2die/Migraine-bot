@@ -1,7 +1,7 @@
 package org.MigraineBot.tg;
 
 
-import org.MigraineBot.model.Constants;
+import org.MigraineBot.Constants;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;

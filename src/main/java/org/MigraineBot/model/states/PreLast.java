@@ -1,6 +1,6 @@
 package org.MigraineBot.model.states;
 
-import org.MigraineBot.model.Constants;
+import org.MigraineBot.Constants;
 
 public class PreLast extends TextNext {
     public PreLast(State next) {
