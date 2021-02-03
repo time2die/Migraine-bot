@@ -4,7 +4,9 @@ public class Flow {
 
     public static State firstState() {
         Last l = new Last(null);
-        return l;
+        var first = new TextNext("Болела ли сегодня голова сегодня?", l);
+
+        return first;
     }
 
 //    public static State firstState() {
