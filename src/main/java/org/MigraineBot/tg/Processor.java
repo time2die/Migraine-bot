@@ -52,8 +52,7 @@ public class Processor {
 
     public void start(Long chatId) {
         users.remove(chatId);
-        var nUser = users.getOrDefault(chatId, new User(chatId, Flow.firstState()));
-        nUser.state.turnOn(chatId);
+        var nUser = users.getOrDefault(chatId, buildDefault(chatId));
         users.put(chatId, nUser);
     }
 
