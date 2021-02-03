@@ -31,9 +31,7 @@ public class Processor {
                 reset(chatId);
                 return;
             case "/start":
-                users.remove(chatId);
-                var nUser = users.getOrDefault(chatId, new User(chatId, Flow.firstState()));
-                users.put(chatId, nUser);
+                start(chatId);
                 return;
         }
 
@@ -49,6 +47,13 @@ public class Processor {
 
     public void reset(Long chatId) {
         users.remove(chatId);
+        start(chatId);
+    }
+
+    public void start(Long chatId) {
+        users.remove(chatId);
+        var nUser = users.getOrDefault(chatId, new User(chatId, Flow.firstState()));
+        users.put(chatId, nUser);
     }
 
     User buildDefault(Long chatId) {
