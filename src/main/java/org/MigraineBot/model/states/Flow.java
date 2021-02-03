@@ -1,12 +1,18 @@
 package org.MigraineBot.model.states;
 
+import org.MigraineBot.Constants;
+
 public class Flow {
 
     public static State firstState() {
         Last l = new Last(null);
-        var first = new TextNext("Болела ли сегодня голова сегодня?", l);
 
-        return first;
+        var ynr = new YesNoRepeat(Constants.CronMessage);
+
+        ynr.setYState(l);
+        ynr.setNState(l);
+
+        return ynr;
     }
 
 //    public static State firstState() {
