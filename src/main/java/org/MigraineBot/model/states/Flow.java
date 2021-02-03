@@ -7,10 +7,15 @@ public class Flow {
     public static State firstState() {
         Last l = new Last(null);
 
+        var sa = new SaveDBAnswer("Введите текст и мы его сохраним в БД\n", 1488l);
+        sa.setNext(l);
+
+
+        var ra = new ReadAnswers(l);
         var ynr = new YesNoRepeat(Constants.CronMessage);
 
-        ynr.setYState(l);
-        ynr.setNState(l);
+        ynr.setYState(sa);
+        ynr.setNState(ra);
 
         return ynr;
     }

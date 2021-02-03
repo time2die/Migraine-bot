@@ -12,4 +12,9 @@ public class Last extends AOneNext {
         sendText(chatId, Constants.WaitRequest);
         return this;
     }
+
+    @Override
+    public void turnOn(long chatId) {
+        sendText(chatId, Constants.WaitRequest);
+    }
 }
