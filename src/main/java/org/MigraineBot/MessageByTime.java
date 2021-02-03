@@ -27,7 +27,7 @@ public class MessageByTime extends TimerTask {
     public boolean timeToSend() {
         Calendar currentCalendar = new GregorianCalendar();
         var minute = currentCalendar.get(Calendar.MINUTE);
-        return minute % 15 == 0 && lastTime.get(Calendar.MINUTE) != minute;
+        return minute % 5 == 0 && lastTime.get(Calendar.MINUTE) != minute;
 //        return currentCalendar.get(Calendar.DAY_OF_MONTH) > calendarSend.get(Calendar.DAY_OF_MONTH) &&
 //                currentCalendar.get(Calendar.HOUR) == 22 &&
 //                currentCalendar.get(Calendar.MINUTE) == 07;
