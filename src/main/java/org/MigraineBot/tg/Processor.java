@@ -28,7 +28,7 @@ public class Processor {
                 MigraineBot.getInstance().sendMsg(chatId, Constants.HelpMessage);
                 return;
             case "/reset":
-                users.remove(chatId);
+                reset(chatId);
                 return;
             case "/start":
                 users.remove(chatId);
@@ -45,6 +45,10 @@ public class Processor {
         nUser.processRequest(chatId, message.getText());
         users.put(chatId, nUser);
 
+    }
+
+    public void reset(Long chatId) {
+        users.remove(chatId);
     }
 
     User buildDefault(Long chatId) {

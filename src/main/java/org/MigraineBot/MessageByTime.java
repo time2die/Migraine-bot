@@ -17,8 +17,9 @@ public class MessageByTime extends TimerTask {
             lastTime = new GregorianCalendar();
             MigraineBot status = MigraineBot.getInstance();
 
-            for (Long text : Repo.GetUsers()) {
-                status.sendMsg(text, Constants.CronMessage);
+            for (Long userId : Repo.GetUsers()) {
+                status.sendMsg(userId, Constants.CronMessage);
+                MigraineBot.getInstance().reset(userId);
             }
 
         }

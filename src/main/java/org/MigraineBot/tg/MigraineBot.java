@@ -73,7 +73,6 @@ public class MigraineBot extends TelegramLongPollingBot {
     }
 
     public void sendMsg(Long ChatId, String text) {
-
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(false);
         sendMessage.setChatId(ChatId.toString());
@@ -84,5 +83,9 @@ public class MigraineBot extends TelegramLongPollingBot {
             e.printStackTrace();
         }
 
+    }
+
+    public void reset(Long chatId) {
+        processor.reset(chatId);
     }
 }
