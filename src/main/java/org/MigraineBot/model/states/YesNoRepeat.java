@@ -18,8 +18,10 @@ public class YesNoRepeat extends AState {
     public State processRequest(long chatId, String text) {
         switch (text.toLowerCase()) {
             case "да":
+                yState.processRequest(chatId, text);
                 return yState;
             case "нет":
+                nState.processRequest(chatId, text);
                 return nState;
             default:
                 sendText(chatId, "Используйте да\\нет\n");
