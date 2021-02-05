@@ -29,6 +29,6 @@ public class Main {
         Calendar today = Calendar.getInstance();
 
         Timer timer = new Timer();
-        timer.schedule(new MessageByTime(), today.getTime(), TimeUnit.MILLISECONDS.convert(45, TimeUnit.SECONDS));
+        timer.schedule(new MessageByTime(), today.getTime(), TimeUnit.MILLISECONDS.convert(20, TimeUnit.SECONDS));
     }
 }
