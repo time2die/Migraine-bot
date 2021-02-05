@@ -15,24 +15,27 @@ public class Processor {
 
     public void process(Update update) {
         Message message = update.getMessage();
-        if (message == null || !message.hasText()) {
-            return;
-        }
+//        if (message == null || !message.hasText()) {
+//            return;
+//        }
+        var chatId = getChatId(update);
 
-        var chatId = message.getChatId();
+        if (message != null) {
 
-        Repo.CreateUser(chatId);
+            chatId = message.getChatId();
+            Repo.CreateUser(chatId);
 
-        switch (message.getText().toLowerCase()) {
-            case "/help":
-                MigraineBot.getInstance().sendMsg(chatId, Constants.HelpMessage);
-                return;
-            case "/reset":
-                reset(chatId);
-                return;
-            case "/start":
-                start(chatId);
-                return;
+            switch (message.getText().toLowerCase()) {
+                case "/help":
+                    MigraineBot.getInstance().sendMsg(chatId, Constants.HelpMessage);
+                    return;
+                case "/reset":
+                    reset(chatId);
+                    return;
+                case "/start":
+                    start(chatId);
+                    return;
+            }
         }
 
 
@@ -40,9 +43,15 @@ public class Processor {
         if (nUser == null) {
             nUser = buildDefault(chatId);
         }
+
+        if (message == null) {
+            nUser.processRequest(chatId, update.getCallbackQuery().getData());
+            users.put(chatId, nUser);
+            return;
+        }
+
         nUser.processRequest(chatId, message.getText());
         users.put(chatId, nUser);
-
     }
 
     public void reset(Long chatId) {
@@ -58,6 +67,20 @@ public class Processor {
 
     User buildDefault(Long chatId) {
         return new User(chatId, Flow.firstState());
+    }
+
+    private Long getChatId(Update u) {
+        var m = u.getMessage();
+        if (m != null) {
+            return m.getChatId();
+        }
+
+        var cq = u.getCallbackQuery();
+        if (cq != null && cq.getFrom() != null) {
+            return cq.getFrom().getId().longValue();
+        }
+
+        return 0L;
     }
 
 }

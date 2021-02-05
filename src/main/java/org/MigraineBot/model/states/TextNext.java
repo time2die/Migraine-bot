@@ -10,12 +10,12 @@ public class TextNext extends AOneNext {
 
     @Override
     public State processRequest(long chatId, String t) {
-        this.next.processRequest(chatId, t);
-        return this.next;
+        return this.next.processRequest(chatId, t);
     }
 
     @Override
     public void turnOn(long chatId) {
         sendText(chatId, this.text);
+        this.next.turnOn(chatId);
     }
 }

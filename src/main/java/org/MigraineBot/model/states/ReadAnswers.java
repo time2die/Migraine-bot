@@ -10,6 +10,7 @@ public class ReadAnswers extends AOneNext {
 
     @Override
     public State processRequest(long chatId, String t) {
+//        this.next.turnOn(chatId);
         return this.next;
     }
 
@@ -35,6 +36,6 @@ public class ReadAnswers extends AOneNext {
         }
         sendText(chatId, res.toString());
 
-        next.turnOn(chatId);
+        this.next.turnOn(chatId);
     }
 }

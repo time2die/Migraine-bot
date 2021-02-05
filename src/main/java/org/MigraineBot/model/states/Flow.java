@@ -17,7 +17,10 @@ public class Flow {
         ynr.setYState(sa);
         ynr.setNState(ra);
 
-        return ynr;
+        var ba = new ButtonTextNext(ynr);
+        var tn = new TextNext("Сообщение по расписанию что нам пора начать общаться", ba);
+
+        return tn;
     }
 
 //    public static State firstState() {

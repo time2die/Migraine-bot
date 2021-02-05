@@ -26,10 +26,8 @@ public class MigraineBot extends TelegramLongPollingBot {
         return localInstance;
     }
 
-    Database stat;
 
     public MigraineBot() {
-        this.stat = new Database();
         System.out.printf("MIGRAINE_BOT_NAME:%s\nMIGRAINE_BOT_TOKEN:%s\n", getBotUsername(), getBotToken());
     }
 
@@ -47,27 +45,17 @@ public class MigraineBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        Message message = update.getMessage();
-        stat.setIdName(message.getFrom().getId(), message.getFrom().getUserName());
-        stat.addChatId(update.getMessage().getChatId());
-
-        if (message.getFrom().getId().longValue() != message.getChatId() && message.getText().startsWith("/")) {
-            sendMsg(message.getChatId(), Constants.OnlyDirectMessage);
-            return;
-        }
-
-        processor.process(update);
-    }
-
-
-    protected void answer(Message message, String text) {
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setChatId(message.getChatId().toString());
-        sendMessage.setReplyToMessageId(message.getMessageId());
-        sendMessage.setText(text);
         try {
-            execute(sendMessage);
-        } catch (TelegramApiException e) {
+            Message message = update.getMessage();
+
+            if (message != null && message.getFrom().getId().longValue() != message.getChatId() && message.getText().startsWith("/")) {
+                sendMsg(message.getChatId(), Constants.OnlyDirectMessage);
+                return;
+            }
+
+            processor.process(update);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -84,6 +72,15 @@ public class MigraineBot extends TelegramLongPollingBot {
         }
 
     }
+
+    public void sendSex(SendMessage sm) {
+        try {
+            execute(sm);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void reset(Long chatId) {
         processor.reset(chatId);
